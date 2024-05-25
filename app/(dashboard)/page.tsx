@@ -1,9 +1,14 @@
+"use client";
 import Image from "next/image";
-
+import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { Button } from "@/components/ui/button";
 export default function Home() {
+  const {onOpen} = useNewAccount();
   return (
-    <div>
-      <p>Dashboard</p>
+    <div> 
+      <Button onClick={onOpen}>
+        Add an account
+      </Button>
     </div>
   );
-}
+};
