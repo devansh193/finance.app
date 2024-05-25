@@ -7,7 +7,8 @@ export const SheetProvider = () =>{
     const isMounted = useMountedState();
     if(!isMounted) return null;
 
-    return( <>
+    return( 
+    <>
     <NewAccountSheet/>
     </>
     )
