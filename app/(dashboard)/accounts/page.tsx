@@ -45,7 +45,7 @@ const AccountsPage = () => {
           <DataTable
             columns={columns}
             data={accounts}
-            filterKey={"email"}
+            filterKey={"name"}
             disabled={false}
             onDelete={() => {}}
           />
