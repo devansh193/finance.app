@@ -5,6 +5,7 @@ import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { eq } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2";
 import { zValidator } from "@hono/zod-validator";
+import { z } from "zod";
 
 
 const app = new Hono()
@@ -40,7 +41,20 @@ const app = new Hono()
       }).returning();
 
       return c.json({ data });
-    }
-  );
+    })
+  .post(
+    "/bulk-delete",
+    clerkMiddleware(),
+     zValidator(
+      "json",
+      z.object({
+        ids: z.array(z.string()),
+      }),
+     ),
+     async (c)=>{
+      const auth = getAuth(c);
+      const values = c.req.valid("json")
+     }
+  )
 
 export default app;
