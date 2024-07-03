@@ -8,27 +8,33 @@ import { columns } from "./columns";
 import { DataTable } from "@/components/data-table";
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete";
 
 const AccountsPage = () => {
   const newAccount = useNewAccount();
+  const deleteAccount = useBulkDeleteAccounts();
   const accountQuery = useGetAccounts();
   const accounts = accountQuery.data || [];
 
-  if(accountQuery.isLoading){
-    return(
+  const isDisabled = 
+  accountQuery.isLoading ||
+  accountQuery.isPending;
+
+  if (accountQuery.isLoading) {
+    return (
       <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24 py-12">
         <Card className="border-none drop-shadow-sm">
           <CardHeader>
-            <Skeleton className="h-8 w-28"/>
+            <Skeleton className="h-8 w-28" />
             <CardContent>
               <div className="h-[500px] w-full flex items-center justify-center">
-                <Loader2 className="size-6 text-slate-300 animate-spin"/>
+                <Loader2 className="size-6 text-slate-300 animate-spin" />
               </div>
             </CardContent>
           </CardHeader>
-        </Card>  
+        </Card>
       </div>
-    )
+    );
   }
 
   return (
@@ -46,8 +52,11 @@ const AccountsPage = () => {
             columns={columns}
             data={accounts}
             filterKey={"name"}
-            disabled={false}
-            onDelete={() => {}}
+            disabled={isDisabled}
+            onDelete={(row) => {
+              const ids = row.map((r)=> r.original.id);
+              deleteAccount.mutate({ids});
+            }}
           />
         </CardContent>
       </Card>

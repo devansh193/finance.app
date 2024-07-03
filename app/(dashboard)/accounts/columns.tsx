@@ -7,9 +7,15 @@ import { ArrowUpDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {client} from "@/lib/hono";
 
+export type Payment = {
+  id: string;
+  amount: number;
+  status: "pending"|"processing"|"success"|"failed";
+  email: string ;
+}
 
 
-export type ResponseType = InferResponseType<typeof client.api.accounts.$get, 200>
+export type ResponseType = InferResponseType<typeof client.api.accounts.$get, 200>["data"][0];
 
 export const columns: ColumnDef<ResponseType>[] = [
   {
