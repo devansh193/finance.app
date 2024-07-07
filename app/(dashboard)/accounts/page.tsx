@@ -25,10 +25,10 @@ const AccountsPage = () => {
       <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24 py-12">
         <Card className="border-none drop-shadow-sm">
           <CardHeader>
-            <Skeleton className="h-8 w-28" />
+            <Skeleton className="h-8 w-28"/>
             <CardContent>
               <div className="h-[500px] w-full flex items-center justify-center">
-                <Loader2 className="size-6 text-slate-300 animate-spin" />
+                <Loader2 className="size-6 text-slate-400 animate-spin" />
               </div>
             </CardContent>
           </CardHeader>
