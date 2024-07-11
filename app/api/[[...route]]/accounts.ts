@@ -151,12 +151,6 @@ const app = new Hono()
         id: z.string().optional(),
       })
     ),
-    zValidator(
-      "json",
-      insertAccountSchema.pick({
-        name: true,
-      })
-    ),
     async (c) => {
       const auth = getAuth(c);
       const { id } = c.req.valid("param");
@@ -169,7 +163,9 @@ const app = new Hono()
       const [data] = await db
         .delete(accounts)
         .where(and(eq(accounts.userId, auth.userId), eq(accounts.id, id)))
-        .returning({id: accounts.id,});
+        .returning({
+          id: accounts.id,
+        });
         
       if (!data) {
         return c.json({ error: "Not found" }, 404);

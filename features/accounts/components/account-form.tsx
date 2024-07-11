@@ -18,7 +18,7 @@ type Props = {
     id?: string;
     defaultValues?: FormValue;
     onSubmit: (values: FormValue)=> void;
-    onDelete: ()=> void;
+    onDelete?: ()=> void;
     disabled?: boolean;
 };
 

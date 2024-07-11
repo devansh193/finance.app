@@ -6,14 +6,13 @@ import { toast } from "sonner";
 
 type ResponseType = InferResponseType<typeof client.api.accounts[":id"]["$delete"]>;
 
-export const useEditAccount = (id?: string) => {
+export const useDeleteAccount = (id?: string) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error>({
-    mutationFn: async (json) => {
+    mutationFn: async () => {
       const response = await client.api.accounts[":id"]["$delete"]({
         param: { id },
-        json: undefined
       });
       return await response.json();
     },
