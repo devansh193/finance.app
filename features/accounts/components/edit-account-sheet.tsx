@@ -27,7 +27,7 @@ export const EditAccountSheet = () => {
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
     "You are about to delete this transaction."
-  )
+  );
 
   const accountQuery = useGetAccount(id);
   const editMutation = useEditAccount(id);
@@ -45,17 +45,17 @@ export const EditAccountSheet = () => {
     });
   };
 
-    const onDelete = async ()=>{
-      const ok = await confirm();
+  const onDelete = async () => {
+    const ok = await confirm();
 
-      if(ok){
-        deleteMutation.mutate(undefined,{
-          onSuccess:()=>{
-            onClose();
-          }
-        });
-      }
-    };
+    if (ok) {
+      deleteMutation.mutate(undefined, {
+        onSuccess: () => {
+          onClose();
+        },
+      });
+    }
+  };
 
   const defaultValues = accountQuery.data
     ? {
@@ -67,28 +67,28 @@ export const EditAccountSheet = () => {
 
   return (
     <>
-    <ConfirmDialog/>
-    <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent className="space-y-4">
-        <SheetHeader>
-          <SheetTitle>Edit Account</SheetTitle>
-          <SheetDescription>Edit the account.</SheetDescription>
-        </SheetHeader>
-        {isLoading ? (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Loader2 className="size-4 text-muted-foreground animate-spin" />
-          </div>
-        ) : (
-          <AccountForm
-            id={id}
-            onSubmit={onSubmit}
-            disabled={isPending}
-            defaultValues={defaultValues}
-            onDelete={onDelete}
-          />
-        )}
-      </SheetContent>
-    </Sheet>
+      <ConfirmDialog />
+      <Sheet open={isOpen} onOpenChange={onClose}>
+        <SheetContent className="space-y-4">
+          <SheetHeader>
+            <SheetTitle>Edit Account</SheetTitle>
+            <SheetDescription>Edit the account.</SheetDescription>
+          </SheetHeader>
+          {isLoading ? (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Loader2 className="size-4 text-muted-foreground animate-spin" />
+            </div>
+          ) : (
+            <AccountForm
+              id={id}
+              onSubmit={onSubmit}
+              disabled={isPending}
+              defaultValues={defaultValues}
+              onDelete={onDelete}
+            />
+          )}
+        </SheetContent>
+      </Sheet>
     </>
   );
 };
