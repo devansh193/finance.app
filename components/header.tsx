@@ -15,6 +15,7 @@ export const Header = () =>{
                     </div>
                     <ClerkLoaded>
                     <UserButton afterSwitchSessionUrl="/"/>
+
                     </ClerkLoaded>
                     <ClerkLoading>
                         <Loader2 className="size-8 animate-spin text-gray-200"/>
