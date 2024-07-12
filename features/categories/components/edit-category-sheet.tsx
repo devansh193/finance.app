@@ -10,7 +10,7 @@ import { CategoryForm } from "./category-form";
 import { insertCategorySchema } from "@/db/schema";
 import { z } from "zod";
 import { useConfirm } from "@/hooks/use-confirm";
-import { useGetCategories } from "../api/use-get-categories";
+import { useGetCategory } from "../api/use-get-category";
 import { Loader2 } from "lucide-react";
 import { useEditCategory } from "../api/use-edit-category";
 import { useDeleteCategory } from "../api/use-delete-category";
@@ -28,7 +28,7 @@ export const EditCategorySheet = () => {
     "You are about to delete this category."
   );
 
-  const categoryQuery = useGetCategories(id);
+  const categoryQuery = useGetCategory(id);
   const editMutation = useEditCategory(id);
   const deleteMutation = useDeleteCategory(id);
 
@@ -71,7 +71,7 @@ export const EditCategorySheet = () => {
         <SheetContent className="space-y-4">
           <SheetHeader>
             <SheetTitle>Edit Category</SheetTitle>
-            <SheetDescription>Edit the existing category.</SheetDescription>
+            <SheetDescription>Edit an existing category.</SheetDescription>
           </SheetHeader>
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center">

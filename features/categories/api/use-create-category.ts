@@ -20,7 +20,7 @@ export const useCreateCategory = () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
     onError: () => {
-      toast.error("Failed to create category .");
+      toast.error("Failed to create category.");
     },
   });
   return mutation;

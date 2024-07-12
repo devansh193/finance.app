@@ -10,15 +10,17 @@ import { useGetCategories } from "@/features/categories/api/use-get-categories";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBulkDeleteCategories } from "@/features/categories/api/use-bulk-delete-categories";
 
+
 const CategoriesPage = () => {
   const newCategory = useNewCategory();
   const deleteCategories = useBulkDeleteCategories();
   const categoriesQuery = useGetCategories();
   const categories = categoriesQuery.data || [];
 
+
   const isDisabled = 
   categoriesQuery.isLoading ||
-  categoriesQuery.isPending;
+  deleteCategories.isPending;
 
   if (categoriesQuery.isLoading) {
     return (
@@ -41,7 +43,7 @@ const CategoriesPage = () => {
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24 py-12">
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-          <CardTitle className="text-xl line-clamp-1">Categories Page</CardTitle>
+          <CardTitle className="text-xl line-clamp-1">Category Page</CardTitle>
           <Button size={"sm"} onClick={newCategory.onOpen}>
             <Plus className="size-4 mr-2" />
             Add new
