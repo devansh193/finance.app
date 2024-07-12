@@ -10,6 +10,7 @@ import { Actions } from "./actions";
 import { format } from "date-fns";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { AccountColumn } from "./account-column";
 
 export type Payment = {
   id: string;
@@ -143,9 +144,10 @@ export const columns: ColumnDef<ResponseType>[] = [
     cell: ({row}) =>{
       const date = row.getValue("date") as Date;
       return (
-        <span>
-          {row.original.account}
-        </span>
+        <AccountColumn
+        account={row.original.account}
+        accountId={row.original.accountId}
+        />
       )
     }
   },
