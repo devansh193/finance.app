@@ -13,7 +13,6 @@ import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { parse, subDays } from "date-fns";
 
-
 const app = new Hono()
 
   .get(
@@ -128,6 +127,36 @@ const app = new Hono()
       if (!data) {
         return c.json({ error: "Not found" }, 401);
       }
+      return c.json({ data });
+    }
+  )
+  .post(
+    "/bulk-create",
+    clerkMiddleware(),
+    zValidator(
+      "json",
+      z.array(
+        insertTransactionSchema.omit({
+          id: true,
+        })
+      )
+    ),
+    async (c) => {
+      const auth = getAuth(c);
+      const values = c.req.valid("json");
+
+      if (!auth?.userId) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+      const data = await db
+        .insert(transactions)
+        .values(
+          values.map((value) => ({
+            id: createId(),
+            ...value,
+          }))
+        )
+        .returning();
       return c.json({ data });
     }
   )
