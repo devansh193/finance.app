@@ -166,7 +166,7 @@ const app = new Hono()
         .returning({
           id: accounts.id,
         });
-        
+
       if (!data) {
         return c.json({ error: "Not found" }, 404);
       }
