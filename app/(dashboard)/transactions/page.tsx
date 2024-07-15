@@ -9,8 +9,36 @@ import { DataTable } from "@/components/data-table";
 import { useGetTransactions } from "@/features/transactions/api/use-get-transactions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBulkDeleteTransactions } from "@/features/transactions/api/use-bulk-delete-transactions";
+import { useState } from "react";
+import { Variables } from "hono/types";
+import { UploadButton } from "./upload-button";
+import { ImportCard } from "./import-card";
+
+enum VARIANT {
+  LIST = "LIST",
+  IMPORT = "IMPORT",
+};
+
+const INITIAL_IMPORT_RESULTS = {
+  data:[],
+  errors:[],
+  meta:{},
+};
 
 const TransactionPage = () => {
+  const [variant, setVariant] = useState<VARIANT>(VARIANT.LIST);
+  const [importResult, setImportResult]= useState(INITIAL_IMPORT_RESULTS);
+
+  const onUpload = ( results: typeof INITIAL_IMPORT_RESULTS)=>{
+    setImportResult(results);
+    setVariant(VARIANT.IMPORT);
+  };
+  
+  const onCancelImport = () =>{
+    setImportResult(INITIAL_IMPORT_RESULTS);
+    setVariant(VARIANT.LIST);
+  };
+
   const newTransaction = useNewTransaction();
   const deleteTransactions = useBulkDeleteTransactions();
   const transactionsQuery = useGetTransactions();
@@ -37,21 +65,38 @@ const TransactionPage = () => {
     );
   }
 
+  if(variant === VARIANT.IMPORT){
+    return(
+      <>
+      <ImportCard
+      data={importResult.data}
+      onCancel={onCancelImport}
+      onSubmit={()=>{}}
+      />
+      </>
+    );
+  };
+
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24 py-12">
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="text-xl line-clamp-1">Transactions History</CardTitle>
-          <Button size={"sm"} onClick={newTransaction.onOpen}>
+         <div className="flex items-center gap-3">
+         <Button size={"sm"} onClick={newTransaction.onOpen}>
             <Plus className="size-4 mr-2" />
             Add new
           </Button>
+          <UploadButton
+            onUpload={onUpload}
+          />
+         </div>
         </CardHeader>
         <CardContent>
           <DataTable
             columns={columns}
             data={transactions}
-            filterKey={"name"}
+            filterKey={"payee"}
             disabled={isDisabled}
             onDelete={(row) => {
               const ids = row.map((r)=> r.original.id);
