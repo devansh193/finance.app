@@ -5,7 +5,7 @@ import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { and, eq, inArray } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2";
 import { zValidator } from "@hono/zod-validator";
-import { z } from "zod";
+import { array, z } from "zod";
 
 const app = new Hono()
 
@@ -175,3 +175,6 @@ const app = new Hono()
   );
 
 export default app;
+
+
+
