@@ -3,9 +3,6 @@ import { Button } from "@/components/ui/button";
 import {parse, format} from "date-fns";
 import { useState } from "react";
 import { ImportTable } from "./import-table";
-import { columns } from "./columns";
-import { Item } from "@radix-ui/react-dropdown-menu";
-import { it } from "node:test";
 import { convertAmountFromMiliUnits } from "@/lib/utils";
 
 
@@ -21,7 +18,7 @@ interface SelectedColumnState {
 type Props = {
   data: string[][];
   onCancel: () => void;
-  onSubmit: () => void;
+  onSubmit: (data: any) => void;
 };
 
 export const ImportCard = ({ data, onSubmit, onCancel }: Props) => {
@@ -86,7 +83,7 @@ export const ImportCard = ({ data, onSubmit, onCancel }: Props) => {
 
     const formattedData = arrayData.map((item)=>({
       ...item,
-      amount: convertAmountFromMiliUnits(parseFloat(item.amount)),
+      amount: convertAmountFromMiliUnits(parseFloat(item.amount)), 
       date: format(parse(item.date, dateFormat, new Date()), outputFormat)
     }));
     
