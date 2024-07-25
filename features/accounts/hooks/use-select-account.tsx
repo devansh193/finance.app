@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useGetAccount } from "../api/use-get-account";
+import { useGetAccounts } from "../api/use-get-accounts";
 import { useCreateAccount } from "../api/use-create-account";
 import { Select } from "@/components/select";
 
@@ -21,17 +21,17 @@ export const useSelectAccount = (): [() => JSX.Element, () => Promise<unknown>] 
   } | null>(null);
 
   const selectValue = useRef<string>();
-  const accountQuery = useGetAccount();
+  const accountQuery = useGetAccounts();
   const accountMutation = useCreateAccount();
   
   const onCreateAccount = (name: string) => {
     accountMutation.mutate({ name });
   };
-  const accountOptions = (accountQuery.data?? []).map((account)=>({
+
+  const accountOptions = (accountQuery.data ?? []).map((account) => ({
     label: account.name,
     value: account.id,
-  }))
-
+  }));
 
   const confirm = () =>
     new Promise<string | undefined>((resolve) => {
