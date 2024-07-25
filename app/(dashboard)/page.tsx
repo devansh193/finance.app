@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { DataGrid } from "@/components/data.grid";
 export default function Home() {
   const {onOpen} = useNewAccount();
   const router = useRouter();
@@ -23,15 +24,8 @@ export default function Home() {
 
   };
   return (
-    <div className="flex items-center justify-center gap-4 pt-4"> 
-     {routes.map((route)=>(
-      <Button 
-      variant={"outline"}
-      key={route.label} 
-      onClick={()=>onClick(route.href)}
-      >
-        {route.label}</Button>
-     ))}
+    <div className="max-w-screen-2xl mx-auto w-full pb-10 "> 
+      <DataGrid/>
     </div>
   );
 };

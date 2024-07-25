@@ -10,7 +10,6 @@ import { useGetTransactions } from "@/features/transactions/api/use-get-transact
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBulkDeleteTransactions } from "@/features/transactions/api/use-bulk-delete-transactions";
 import { useState } from "react";
-import { Variables } from "hono/types";
 import { UploadButton } from "./upload-button";
 import { ImportCard } from "./import-card";
 import { useSelectAccount } from "@/features/accounts/hooks/use-select-account";
@@ -44,7 +43,7 @@ const TransactionPage = () => {
   };
 
   const newTransaction = useNewTransaction();
-  const createTransation = useBulkCreateTransaction();
+  const createTransaction = useBulkCreateTransaction();
   const deleteTransactions = useBulkDeleteTransactions();
   const transactionsQuery = useGetTransactions();
   const transactions = transactionsQuery.data || [];
@@ -62,7 +61,7 @@ const TransactionPage = () => {
         ...value,
         accountId: accountId as string,
       }));
-      createTransation.mutate(data,{
+      createTransaction.mutate(data,{
         onSuccess: () =>{
           onCancelImport();
         },

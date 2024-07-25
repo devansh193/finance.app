@@ -1,6 +1,4 @@
-
 import { useRef, useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,25 +12,29 @@ import { useGetAccount } from "../api/use-get-account";
 import { useCreateAccount } from "../api/use-create-account";
 import { Select } from "@/components/select";
 
-export const useSelectAccount = ( ): [() => JSX.Element, () => Promise<unknown>] => {
+type Account = { id: string; name: string };
+
+export const useSelectAccount = (): [() => JSX.Element, () => Promise<unknown>] => {
 
   const [promise, setPromise] = useState<{
     resolve: (value: string | undefined) => void;
   } | null>(null);
-  const selectValue = useRef<string>(); 
+
+  const selectValue = useRef<string>();
   const accountQuery = useGetAccount();
   const accountMutation = useCreateAccount();
-  const onCreateAccount = (name: string)=>{
-    accountMutation.mutate({name});
-  }
-  const accountOption = (accountQuery.data?? []).map((account) => ({
+  
+  const onCreateAccount = (name: string) => {
+    accountMutation.mutate({ name });
+  };
+  const accountOptions = (accountQuery.data?? []).map((account)=>({
     label: account.name,
     value: account.id,
-  }));
+  }))
 
 
   const confirm = () =>
-    new Promise((resolve, reject) => {
+    new Promise<string | undefined>((resolve) => {
       setPromise({ resolve });
     });
 
@@ -58,12 +60,12 @@ export const useSelectAccount = ( ): [() => JSX.Element, () => Promise<unknown>]
             <DialogTitle>Select account</DialogTitle>
             <DialogDescription>Please select an account to continue.</DialogDescription>
           </DialogHeader>
-          <Select 
-          placeHolder="Select an account."
-          options={accountOption}
-          onCreate={onCreateAccount}
-          onChange={(value)=> selectValue.current = value}
-          disabled={accountQuery.isLoading || accountMutation.isPending}
+          <Select
+            placeHolder="Select an account."
+            options={accountOptions}
+            onCreate={onCreateAccount}
+            onChange={(value) => (selectValue.current = value)}
+            disabled={accountQuery.isLoading || accountMutation.isPending}
           />
           <DialogFooter className="pt-2">
             <Button onClick={handleCancel} variant={"outline"}>
