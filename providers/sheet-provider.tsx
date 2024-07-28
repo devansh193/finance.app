@@ -9,18 +9,18 @@ import { EditCategorySheet } from "@/features/categories/components/edit-categor
 import { NewTransactionSheet } from "@/features/transactions/components/new-transaction-sheet";
 import { EditTransactionSheet } from "@/features/transactions/components/edit-transaction-sheet";
 
-export const SheetProvider = () =>{
-    const isMounted = useMountedState();
-    if(!isMounted) return null;
+export const SheetProvider = () => {
+  const isMounted = useMountedState();
+  if (!isMounted) return null;
 
-    return( 
+  return (
     <>
-    <NewAccountSheet/>
-    <EditAccountSheet/>
-    <NewCategorySheet/>
-    <EditCategorySheet/>
-    <NewTransactionSheet/>
-    <EditTransactionSheet/>
+      <NewAccountSheet />
+      <EditAccountSheet />
+      <NewCategorySheet />
+      <EditCategorySheet />
+      <NewTransactionSheet />
+      <EditTransactionSheet />
     </>
-    )
+  );
 };

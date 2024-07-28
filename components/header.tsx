@@ -4,7 +4,8 @@ import { Navigation } from "./navigation";
 import { Loader2 } from "lucide-react";
 import { WelcomeMsg } from "./welcomeMsg";
 
-export const Header = () =>{
+export const Header = () =>{    
+    
     return (
         <header className="bg-gradient-to-b from-blue-700 to-blue-500 px-4 py-10 lg:px-14 pb-46">
             <div className="max-w-screen-2xl mx-auto ">

@@ -4,7 +4,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { client } from "@/lib/hono";
 import { toast } from "sonner";
 
-type ResponseType = InferResponseType<typeof client.api.accounts[":id"]["$delete"]>;
+type ResponseType = InferResponseType<
+  (typeof client.api.accounts)[":id"]["$delete"]
+>;
 
 export const useDeleteAccount = (id?: string) => {
   const queryClient = useQueryClient();
@@ -18,7 +20,7 @@ export const useDeleteAccount = (id?: string) => {
     },
     onSuccess: () => {
       toast.success("Account deleted");
-      queryClient.invalidateQueries({ queryKey: ["account" ,{ id }] });
+      queryClient.invalidateQueries({ queryKey: ["account", { id }] });
       queryClient.invalidateQueries({ queryKey: ["accounts"] });
     },
     onError: () => {

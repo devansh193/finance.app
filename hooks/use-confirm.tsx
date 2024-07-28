@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dialog";
 
 export const useConfirm = (
-  title: string, 
-  message: string,
+  title: string,
+  message: string
 ): [() => JSX.Element, () => Promise<unknown>] => {
   const [promise, setPromise] = useState<{
     resolve: (value: boolean) => void;
@@ -49,9 +49,7 @@ export const useConfirm = (
             <Button onClick={handleCancel} variant={"outline"}>
               Cancel
             </Button>
-            <Button onClick={handleConfirm}>
-              Confirm
-            </Button>
+            <Button onClick={handleConfirm}>Confirm</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

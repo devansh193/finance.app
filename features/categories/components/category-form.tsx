@@ -36,7 +36,6 @@ export const CategoryForm = ({
   onDelete,
   disabled,
 }: Props) => {
-
   const form = useForm<FormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,

@@ -2,10 +2,10 @@
 
 import { InferResponseType } from "hono";
 import { Button } from "@/components/ui/button";
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import {client} from "@/lib/hono";
+import { client } from "@/lib/hono";
 import { Actions } from "./actions";
 import { format } from "date-fns";
 import { formatCurrency } from "@/lib/utils";
@@ -15,12 +15,14 @@ import { AccountColumn } from "./account-column";
 export type Payment = {
   id: string;
   amount: number;
-  status: "pending"|"processing"|"success"|"failed";
-  email: string ;
-}
+  status: "pending" | "processing" | "success" | "failed";
+  email: string;
+};
 
-
-export type ResponseType = InferResponseType<typeof client.api.transactions.$get, 200>["data"][0];
+export type ResponseType = InferResponseType<
+  typeof client.api.transactions.$get,
+  200
+>["data"][0];
 
 export const columns: ColumnDef<ResponseType>[] = [
   {
@@ -56,16 +58,12 @@ export const columns: ColumnDef<ResponseType>[] = [
           Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
-    cell: ({row}) =>{
+    cell: ({ row }) => {
       const date = row.getValue("date") as Date;
-      return (
-        <span>
-          {format(date, "dd MMMM, yyyy")} 
-        </span>
-      )
-    }
+      return <span>{format(date, "dd MMMM, yyyy")}</span>;
+    },
   },
   {
     accessorKey: "category",
@@ -78,16 +76,12 @@ export const columns: ColumnDef<ResponseType>[] = [
           Category
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
-    cell: ({row}) =>{
+    cell: ({ row }) => {
       const date = row.getValue("date") as Date;
-      return (
-        <span>
-          {row.original.category}
-        </span>
-      )
-    }
+      return <span>{row.original.category}</span>;
+    },
   },
   {
     accessorKey: "payee",
@@ -100,7 +94,7 @@ export const columns: ColumnDef<ResponseType>[] = [
           Payee
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -114,19 +108,19 @@ export const columns: ColumnDef<ResponseType>[] = [
           Amount
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
-    cell: ({row}) =>{
+    cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
       return (
         <Badge
-        variant={amount<0? "destructive":"primary"}
-        className="test-xs font-medium px-3.5 py-2.5"
+          variant={amount < 0 ? "destructive" : "primary"}
+          className="test-xs font-medium px-3.5 py-2.5"
         >
           {formatCurrency(amount)}
         </Badge>
-      )
-    }
+      );
+    },
   },
   {
     accessorKey: "account",
@@ -139,20 +133,20 @@ export const columns: ColumnDef<ResponseType>[] = [
           Account
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
-    cell: ({row}) =>{
+    cell: ({ row }) => {
       const date = row.getValue("date") as Date;
       return (
         <AccountColumn
-        account={row.original.account}
-        accountId={row.original.accountId}
+          account={row.original.account}
+          accountId={row.original.accountId}
         />
-      )
-    }
+      );
+    },
   },
   {
     id: "actions",
-    cell: ({ row })=> <Actions id={row.original.id}/>
-  }
+    cell: ({ row }) => <Actions id={row.original.id} />,
+  },
 ];

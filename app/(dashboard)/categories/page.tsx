@@ -10,24 +10,20 @@ import { useGetCategories } from "@/features/categories/api/use-get-categories";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBulkDeleteCategories } from "@/features/categories/api/use-bulk-delete-categories";
 
-
 const CategoriesPage = () => {
   const newCategory = useNewCategory();
   const deleteCategories = useBulkDeleteCategories();
   const categoriesQuery = useGetCategories();
   const categories = categoriesQuery.data || [];
 
-
-  const isDisabled = 
-  categoriesQuery.isLoading ||
-  deleteCategories.isPending;
+  const isDisabled = categoriesQuery.isLoading || deleteCategories.isPending;
 
   if (categoriesQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24 py-12">
         <Card className="border-none drop-shadow-sm">
           <CardHeader>
-            <Skeleton className="h-8 w-28"/>
+            <Skeleton className="h-8 w-28" />
             <CardContent>
               <div className="h-[500px] w-full flex items-center justify-center">
                 <Loader2 className="size-6 text-slate-400 animate-spin" />
@@ -56,8 +52,8 @@ const CategoriesPage = () => {
             filterKey={"name"}
             disabled={isDisabled}
             onDelete={(row) => {
-              const ids = row.map((r)=> r.original.id);
-              deleteCategories.mutate({ids});
+              const ids = row.map((r) => r.original.id);
+              deleteCategories.mutate({ ids });
             }}
           />
         </CardContent>

@@ -16,16 +16,14 @@ const AccountsPage = () => {
   const accountQuery = useGetAccounts();
   const accounts = accountQuery.data || [];
 
-  const isDisabled = 
-  accountQuery.isLoading ||
-  accountQuery.isPending;
+  const isDisabled = accountQuery.isLoading || accountQuery.isPending;
 
   if (accountQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24 py-12">
         <Card className="border-none drop-shadow-sm">
           <CardHeader>
-            <Skeleton className="h-8 w-28"/>
+            <Skeleton className="h-8 w-28" />
             <CardContent>
               <div className="h-[500px] w-full flex items-center justify-center">
                 <Loader2 className="size-6 text-slate-400 animate-spin" />
@@ -54,8 +52,8 @@ const AccountsPage = () => {
             filterKey={"name"}
             disabled={isDisabled}
             onDelete={(row) => {
-              const ids = row.map((r)=> r.original.id);
-              deleteAccount.mutate({ids});
+              const ids = row.map((r) => r.original.id);
+              deleteAccount.mutate({ ids });
             }}
           />
         </CardContent>

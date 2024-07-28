@@ -37,7 +37,7 @@ export const PieVariant = ({ data }: Props) => {
                   >
                     <span
                       className="size-2 rounded-ful"
-                      style={{ backgroundColor:entry.color }}
+                      style={{ backgroundColor: entry.color }}
                     />
                     <div className="space-x-1">
                       <span className="text-sm text-muted-foreground">
@@ -53,7 +53,7 @@ export const PieVariant = ({ data }: Props) => {
             );
           }}
         />
-        <Tooltip content={<CategoryTooltip/> }/>
+        <Tooltip content={<CategoryTooltip />} />
         <Pie
           data={data}
           cx="50%"

@@ -14,8 +14,10 @@ import { Select } from "@/components/select";
 
 type Account = { id: string; name: string };
 
-export const useSelectAccount = (): [() => JSX.Element, () => Promise<unknown>] => {
-
+export const useSelectAccount = (): [
+  () => JSX.Element,
+  () => Promise<unknown>
+] => {
   const [promise, setPromise] = useState<{
     resolve: (value: string | undefined) => void;
   } | null>(null);
@@ -23,7 +25,7 @@ export const useSelectAccount = (): [() => JSX.Element, () => Promise<unknown>] 
   const selectValue = useRef<string>();
   const accountQuery = useGetAccounts();
   const accountMutation = useCreateAccount();
-  
+
   const onCreateAccount = (name: string) => {
     accountMutation.mutate({ name });
   };
@@ -58,7 +60,9 @@ export const useSelectAccount = (): [() => JSX.Element, () => Promise<unknown>] 
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Select account</DialogTitle>
-            <DialogDescription>Please select an account to continue.</DialogDescription>
+            <DialogDescription>
+              Please select an account to continue.
+            </DialogDescription>
           </DialogHeader>
           <Select
             placeHolder="Select an account."
@@ -71,9 +75,7 @@ export const useSelectAccount = (): [() => JSX.Element, () => Promise<unknown>] 
             <Button onClick={handleCancel} variant={"outline"}>
               Cancel
             </Button>
-            <Button onClick={handleConfirm}>
-              Confirm
-            </Button>
+            <Button onClick={handleConfirm}>Confirm</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

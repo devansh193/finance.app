@@ -2,21 +2,23 @@
 
 import { InferResponseType } from "hono";
 import { Button } from "@/components/ui/button";
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import {client} from "@/lib/hono";
+import { client } from "@/lib/hono";
 import { Actions } from "./actions";
 
 export type Payment = {
   id: string;
   amount: number;
-  status: "pending"|"processing"|"success"|"failed";
-  email: string ;
-}
+  status: "pending" | "processing" | "success" | "failed";
+  email: string;
+};
 
-
-export type ResponseType = InferResponseType<typeof client.api.accounts.$get, 200>["data"][0];
+export type ResponseType = InferResponseType<
+  typeof client.api.accounts.$get,
+  200
+>["data"][0];
 
 export const columns: ColumnDef<ResponseType>[] = [
   {
@@ -52,11 +54,11 @@ export const columns: ColumnDef<ResponseType>[] = [
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
     id: "actions",
-    cell: ({ row })=> <Actions id={row.original.id}/>
-  }
+    cell: ({ row }) => <Actions id={row.original.id} />,
+  },
 ];
