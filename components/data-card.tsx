@@ -99,7 +99,12 @@ export const DataCardLoading = () =>{
             <Skeleton className="h-6 w-24"/>
             <Skeleton className="h-6 w-24"/>
           </div>
+          <Skeleton className="size-12"/> 
         </CardHeader>
+        <CardContent>
+          <Skeleton className="shrink-0 h-10 w-24 mb-2"/>
+          <Skeleton className="shrink-0 h-4 w-40"/>
+        </CardContent>
     </Card>
-  )
-}
+  );
+};
