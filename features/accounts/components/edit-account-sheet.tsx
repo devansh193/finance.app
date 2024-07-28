@@ -14,7 +14,6 @@ import { useGetAccount } from "../api/use-get-account";
 import { Loader2 } from "lucide-react";
 import { useEditAccount } from "../api/use-edit-account";
 import { useDeleteAccount } from "../api/use-delete-account";
-import { IM_Fell_French_Canon } from "next/font/google";
 
 const formSchema = insertAccountSchema.pick({
   name: true,
